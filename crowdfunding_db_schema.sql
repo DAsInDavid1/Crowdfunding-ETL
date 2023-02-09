@@ -6,11 +6,11 @@ CREATE TABLE "campaign" (
     "cf_id" int   NOT NULL,
     "contact_id" int   NOT NULL,
     "company_name" varchar(100)   NOT NULL,
-    "description" text   NOT NULL,
+    "descirption" text   NOT NULL,
     "goal" numeric(10,2)   NOT NULL,
     "pledged" numeric(10,2)   NOT NULL,
     "outcome" varchar(50)   NOT NULL,
-    "backaers_count" int   NOT NULL,
+    "backers_count" int   NOT NULL,
     "country" varchar(10)   NOT NULL,
     "currency" varchar(10)   NOT NULL,
     "launch_date" date   NOT NULL,
@@ -47,6 +47,20 @@ CREATE TABLE "subcategory" (
         "subcategory_id"
      )
 );
+
+CREATE TABLE "backers" (
+    "backer_id" varchar(10)   NOT NULL,
+    "cf_id" int   NOT NULL,
+    "first_name" varchar(50)   NOT NULL,
+    "last_name" varchar(50)   NOT NULL,
+    "email" varchar(100)   NOT NULL,
+    CONSTRAINT "pk_backers" PRIMARY KEY (
+        "backer_id"
+     )
+);
+
+ALTER TABLE "backers" ADD CONSTRAINT "fk_backers_cf_id" FOREIGN KEY("cf_id")
+REFERENCES "campaign" ("cf_id");
 
 ALTER TABLE "campaign" ADD CONSTRAINT "fk_campaign_contact_id" FOREIGN KEY("contact_id")
 REFERENCES "contacts" ("contact_id");
